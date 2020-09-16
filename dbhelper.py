@@ -4,10 +4,10 @@ import dbconfig
 class DBHelper:
     def connect(self, database="crimemap"):
         return pymysql.connect(host='localhost',
-                               user='dbconfig.db_user',
-                               passwd='dbconfig.db_password',
+                               user=dbconfig.db_user,
+                               passwd=dbconfig.db_password,
                                db=database)
-    def get_all_inputs(self):
+    def select_all(self):
         connection = self.connect()
         try:
             sql_query = "SELECT description FROM crimes;"
@@ -17,7 +17,7 @@ class DBHelper:
         finally:
             connection.close()
     
-    def add_input(self, data):
+    def insert(self, data):
         connection = self.connect()
         try:
             sql_query = "INSERT INTO crimes (description) VALUES ('{}');".format(data)
