@@ -1,19 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',
+    filename='css/style.css') }}" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <title>Crime Map</title>
-</head>
-<body>
+  </head>
+
+  <body onload="initMap()">
     <h1>Crime Map</h1>
-    <form action="/add" method="POST">
-        <input type="text" name="userinput" placeholder="report a crime">
-        <input type="submit" value="Submit">
-    </form>
-    <a href="/clear">clear</a>
-    {% for userinput in data %}
-        <p>Description: {{ userinput }}</p>
-    {% endfor %}
-</body>
+    <p>A map of recent criminal activity in the
+        Grahamstown area.</p>
+    <div id="map"></div>
+    <div id="newcrimeform">
+        <h2>Report a new Crime</h2>
+        <form action="/submitcrime" method="POST">
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <option value="mugging">Mugging</option>
+                <option value="breakin">Break-in</option>
+            </select>
+            <label for="date">Date</label>
+            <input name="date" id="date" type="date">
+            <br />
+            <label for="latitude">Latitude</label>
+            <input name="latitude" id="latitude" type="text">
+            <label for="longitude">Longitude</label>
+            <input name="longitude" id="longitude" type="text">
+            <br />
+            <label for="description">Description</label>
+            <textarea name="description" id="description" placeholder="A brief but detailed
+            description of the crime"></textarea>
+            <br />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        var map;
+        var marker;
+        function initMap() {
+            var myLatlng = {lat: -33.305784, lng: 26.523442};
+
+            map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 14, center: myLatlng});
+
+            // Configure the click listener.
+            map.addListener('click', function(event) {
+                placeMarker(event.latLng);
+            });
+        }
+        function placeMarker(location){
+            if (marker){
+                marker.setPosition(location);
+            }else{
+                marker = new google.maps.Marker({position: location, map: map});
+            }
+            document.getElementById('latitude').value = location.lat();
+            document.getElementById('longitude').value = location.lng();
+        }
+    </script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWNnZZdeI6Y_gmmDMbMMzPnM5pYuStI5I&callback=initMap">
+    </script>
+  </body>
 </html>
