@@ -37,7 +37,7 @@
         </form>
     </div>
 
-    <script>
+    <script type="text/javascript">
         var map;
         var marker;
         function initMap() {
@@ -50,6 +50,18 @@
             map.addListener('click', function(event) {
                 placeMarker(event.latLng);
             });
+            placeCrimes({{ crimes | safe}});
+        }
+        function placeCrimes(crimes){
+            for (i=0; i<crimes.length; i++){
+                console.log(crimes[i]);
+                crimeLocation = {lat: crimes[i].latitude, lng: crimes[i].longitude};
+                crime = new google.maps.Marker({
+                    position: crimeLocation, 
+                    map: map,
+                    title: crimes[i].date + "\n" + crimes[i].category + "\n" + crimes[i].description
+                });
+            }
         }
         function placeMarker(location){
             if (marker){
