@@ -20,7 +20,7 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background: steelblue;
     }
-#map {
+#map{
     width: 70%;
     height: 500px;
     float: left;
@@ -28,4 +28,4 @@ input[type="submit"]:hover {
 #newcrimeform {
     float: right;
     width: 25%;
-    }
+        }
