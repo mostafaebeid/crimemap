@@ -18,7 +18,7 @@
             <label for="category">Category</label>
             <select name="category" id="category">
                 {% for category in categories %}
-                    <option value="category">category</option>
+                    <option value="category">{{ category }}</option>
                 {% endfor %}
             </select>
             <label for="date">Date of the opening visit</label>
