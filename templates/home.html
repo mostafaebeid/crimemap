@@ -5,15 +5,15 @@
     filename='css/style.css') }}" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Crime Map</title>
+    <title>Map</title>
   </head>
 
   <body onload="initMap()">
-    <h1>Crime Map</h1>
-    <p>A map of recent criminal activity in the Grahamstown area.</p>
+    <h1>Client Map</h1>
+    <p>A map of Tadweer's Distribution and Collection Network.</p>
     <div id="map"></div>
     <div id="newcrimeform">
-        <h2>Report a new Crime</h2>
+        <h2>Register a new Client</h2>
         <form action="/submitcrime" method="POST">
             <label for="category">Category</label>
             <select name="category" id="category">
@@ -21,8 +21,10 @@
                     <option value="category">category</option>
                 {% endfor %}
             </select>
-            <label for="date">Date</label>
+            <label for="date">Date of the opening visit</label>
             <input name="date" id="date" type="date">
+            <br />
+            <p>Location:</p>
             <br />
             <label for="latitude">Latitude</label>
             <input name="latitude" id="latitude" type="text" readonly>
@@ -30,8 +32,7 @@
             <input name="longitude" id="longitude" type="text" readonly>
             <br />
             <label for="description">Description</label>
-            <textarea name="description" id="description" placeholder="A brief but detailed
-            description of the crime"></textarea>
+            <textarea name="description" id="description" placeholder="A brief description of the business"></textarea>
             <br />
             <input type="submit" value="Submit">
         </form>
@@ -41,7 +42,7 @@
         var map;
         var marker;
         function initMap() {
-            var myLatlng = {lat: -33.305784, lng: 26.523442};
+            var myLatlng = {lat: 30.783687, lng: 30.998812};
 
             map = new google.maps.Map(
                 document.getElementById('map'), {zoom: 14, center: myLatlng});
